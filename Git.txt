@@ -1,0 +1,17 @@
+// Clonar el servidor/repositorio dentro de la carpeta actual
+git clone https://github.com/alexmaximo06/INF236.git
+
+// Indexar todos los cambios realizados para preparar un commit
+git add .
+
+// Comprometer los cambios indexados, agregando un mensaje
+git commit -m "Commit"
+
+// Sincronizar los cambios comprometidos con el servidor
+git push origin master
+
+// Ver el estado del repositorio: commits pendientes, al día, etc
+git status
+
+// Sincronizar el repositorio local con el servidor
+git pull

@@ -14,6 +14,7 @@ var mysql = require('mysql');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var encuesta = require('./routes/encuesta');
+var folder = require('./routes/folder');
 
 //startup express
 var app = express();
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/encuesta', encuesta);
+app.use('/folder', folder);
 
 //Creates connection to database
 var db = mysql.createConnection({

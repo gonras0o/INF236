@@ -1,173 +1,174 @@
 <div class="container">
     <form name="myForm" action="/encuesta" method="POST">
-        <table>
+    <div class="panel-group">
         <% for (i = 1; i < 13; i++){
-            %><tr><%
+            %><div class="panel panel-default"><%
                 if (i === 1 || i === 5 || i === 8 || i === 11){%>
-                    <td><%-i%>.Cuando aprendo...</td>
+                    <div class="panel-heading"><%-i%>.Cuando aprendo...</div><div class="panel-body">
                 <%}
                 else if (i === 2 || i === 9 || i === 12){%>
-                    <td><%-i%>.Aprendo mejor cuando...</td>
+                    <div class="panel-heading"><%-i%>.Aprendo mejor cuando...</div><div class="panel-body">
                 <%}
                 else if (i === 3 || i === 6 || i === 10){%>
-                    <td><%-i%>.Cuando estoy aprendiendo...</td>
+                    <div class="panel-heading"><%-i%>.Cuando estoy aprendiendo...</div><div class="panel-body">
                 <%}
                 else if (i === 4){%>
-                    <td>4.Yo aprendo...</td>
+                    <div class="panel-heading">4.Yo aprendo...</div><div class="panel-body">
                 <%}
                 else if (i === 7){%>
-                    <td>7.Yo aprendo mejor de...</td>
+                    <div class="panel-heading">7.Yo aprendo mejor de...</div><div class="panel-body">
                 <%}
                 for (j = 1; j < 5; j++){
                     if(i === 1 && j === 1){%>
-                        <td><label>me gusta vivir sensaciones.</label>
+                        <label>me gusta vivir sensaciones.</label>
                     <%}
                     if(i === 1 && j === 2){%>
-                        <td><label>me gusta pensar sobre ideas.</label>
+                        <label>me gusta pensar sobre ideas.</label>
                     <%}
                     if(i === 1 && j === 3){%>
-                        <td><label>me gusta estar haciendo cosas.</label>
+                        <label>me gusta estar haciendo cosas.</label>
                     <%}
                     if(i === 1 && j === 4){%>
-                        <td><label>me gusta observar y escuchar.</label>
+                        <label>me gusta observar y escuchar.</label>
                     <%}
                     if(i === 2 && j === 1){%>
-                        <td><label>escucho y observo cuidadosamente.</label>
+                        <label>escucho y observo cuidadosamente.</label>
                     <%}
                     if(i === 2 && j === 2){%>
-                        <td><label>confío en el pensamiento lógico.</label>
+                        <label>confío en el pensamiento lógico.</label>
                     <%}
                     if(i === 2 && j === 3){%>
-                        <td><label>confío en mi intuición y sentimientos.</label>
+                        <label>confío en mi intuición y sentimientos.</label>
                     <%}
                     if(i === 2 && j === 4){%>
-                        <td><label>trabajo duro para lograr hacer las cosas.</label>
+                        <label>trabajo duro para lograr hacer las cosas.</label>
                     <%}
                     if(i === 3 && j === 1){%>
-                        <td><label>tiendo a usar el razonamiento.</label>
+                        <label>tiendo a usar el razonamiento.</label>
                     <%}
                     if(i === 3 && j === 2){%>
-                        <td><label>soy responsable con lo que hago.</label>
+                        <label>soy responsable con lo que hago.</label>
                     <%}
                     if(i === 3 && j === 3){%>
-                        <td><label>soy callado y reservado.</label>
+                        <label>soy callado y reservado.</label>
                     <%}
                     if(i === 3 && j === 4){%>
-                        <td><label>tengo fuertes sensaciones y reacciones.</label>
+                        <label>tengo fuertes sensaciones y reacciones.</label>
                     <%}
                     if(i === 4 && j === 1){%>
-                        <td><label>sientiendo.</label>
+                        <label>sientiendo.</label>
                     <%}
                     if(i === 4 && j === 2){%>
-                        <td><label>haciendo.</label>
+                        <label>haciendo.</label>
                     <%}
                     if(i === 4 && j === 3){%>
-                        <td><label>observando.</label>
+                        <label>observando.</label>
                     <%}
                     if(i === 4 && j === 4){%>
-                        <td><label>pensando.</label>
+                        <label>pensando.</label>
                     <%}
                     if(i === 5 && j === 1){%>
-                        <td><label>estoy abierto a nuevas experiencias.</label>
+                        <label>estoy abierto a nuevas experiencias.</label>
                     <%}
                     if(i === 5 && j === 2){%>
-                        <td><label>observo todos los aspectos del asunto.</label>
+                        <label>observo todos los aspectos del asunto.</label>
                     <%}
                     if(i === 5 && j === 3){%>
-                        <td><label>me gusta analizar las cosas, descomponerlas en sus partes.</label>
+                        <label>me gusta analizar las cosas, descomponerlas en sus partes.</label>
                     <%}
                     if(i === 5 && j === 4){%>
-                        <td><label>me gusta probar e intentar hacer las cosas.</label>
+                        <label>me gusta probar e intentar hacer las cosas.</label>
                     <%}
                     if(i === 6 && j === 1){%>
-                        <td><label>soy una persona observadora.</label>
+                        <label>soy una persona observadora.</label>
                     <%}
                     if(i === 6 && j === 2){%>
-                        <td><label>soy una persona activa.</label>
+                        <label>soy una persona activa.</label>
                     <%}
                     if(i === 6 && j === 3){%>
-                        <td><label>soy una persona intuitiva.</label>
+                        <label>soy una persona intuitiva.</label>
                     <%}
                     if(i === 6 && j === 4){%>
-                        <td><label>soy una persona lógica.</label>
+                        <label>soy una persona lógica.</label>
                     <%}
                     if(i === 7 && j === 1){%>
-                        <td><label>la observación.</label>
+                        <label>la observación.</label>
                     <%}
                     if(i === 7 && j === 2){%>
-                        <td><label>la relación con otras personas.</label>
+                        <label>la relación con otras personas.</label>
                     <%}
                     if(i === 7 && j === 3){%>
-                        <td><label>las teorías racionales.</label>
+                        <label>las teorías racionales.</label>
                     <%}
                     if(i === 7 && j === 4){%>
-                        <td><label>la oportunidad de probar y practicar.</label>
+                        <label>la oportunidad de probar y practicar.</label>
                     <%}
                     if(i === 8 && j === 1){%>
-                        <td><label>me gusta ver los resultados de mi trabajo.</label>
+                        <label>me gusta ver los resultados de mi trabajo.</label>
                     <%}
                     if(i === 8 && j === 2){%>
-                        <td><label>me gustan las ideas y las teorías.</label>
+                        <label>me gustan las ideas y las teorías.</label>
                     <%}
                     if(i === 8 && j === 3){%>
-                        <td><label>me tomo mi tiempo antes de actuar.</label>
+                        <label>me tomo mi tiempo antes de actuar.</label>
                     <%}
                     if(i === 8 && j === 4){%>
-                        <td><label>me siento personalmente involucrado en las cosas.</label>
+                        <label>me siento personalmente involucrado en las cosas.</label>
                     <%}
                     if(i === 9 && j === 1){%>
-                        <td><label>confío en mis observaciones.</label>
+                        <label>confío en mis observaciones.</label>
                     <%}
                     if(i === 9 && j === 2){%>
-                        <td><label>confío en mis sentimientos.</label>
+                        <label>confío en mis sentimientos.</label>
                     <%}
                     if(i === 9 && j === 3){%>
-                        <td><label>puedo probar por mi cuenta.</label>
+                        <label>puedo probar por mi cuenta.</label>
                     <%}
                     if(i === 9 && j === 4){%>
-                        <td><label>confío en mis ideas.</label>
+                        <label>confío en mis ideas.</label>
                     <%}
                     if(i === 10 && j === 1){%>
-                        <td><label>soy una persona reservada.</label>
+                        <label>soy una persona reservada.</label>
                     <%}
                     if(i === 10 && j === 2){%>
-                        <td><label>soy una persona receptiva.</label>
+                        <label>soy una persona receptiva.</label>
                     <%}
                     if(i === 10 && j === 3){%>
-                        <td><label>soy una persona responsable.</label>
+                        <label>soy una persona responsable.</label>
                     <%}
                     if(i === 10 && j === 4){%>
-                        <td><label>soy una persona racional.</label>
+                        <label>soy una persona racional.</label>
                     <%}
                     if(i === 11 && j === 1){%>
-                        <td><label>me involucro.</label>
+                        <label>me involucro.</label>
                     <%}
                     if(i === 11 && j === 2){%>
-                        <td><label>me gusta observar.</label>
+                        <label>me gusta observar.</label>
                     <%}
                     if(i === 11 && j === 3){%>
-                        <td><label>evalúo las cosas.</label>
+                        <label>evalúo las cosas.</label>
                     <%}
                     if(i === 11 && j === 4){%>
-                        <td><label>me gusta ser activo.</label>
+                        <label>me gusta ser activo.</label>
                     <%}
                     if(i === 12 && j === 1){%>
-                        <td><label>analizo ideas.</label>
+                        <label>analizo ideas.</label>
                     <%}
                     if(i === 12 && j === 2){%>
-                        <td><label>soy receptivo y abierto.</label>
+                        <label>soy receptivo y abierto.</label>
                     <%}
                     if(i === 12 && j === 3){%>
-                        <td><label>soy cuidadoso.</label>
+                        <label>soy cuidadoso.</label>
                     <%}
                     if(i === 12 && j === 4){%>
-                        <td><label>soy práctico.</label>
+                        <label>soy práctico.</label>
                     <%}%>
-                    <p><input type='text' name='index[<%-i%>][<%-j%>]' value='' maxlength="1" size="4" required/></td></p>
+                    <p><input type='text' name='index[<%-i%>][<%-j%>]' value='' maxlength="1" size="4" required/></p>
                 <%}%>
-                </tr>
+                </div>
+                </div>
             <%}%>
-        </table>
+        </div>
         <center><input type="submit" value="Terminar encuesta" name="finish" class="btn btn-success" ng-disabled="myForm.$invalid" /></center>
     </form>
 </div>

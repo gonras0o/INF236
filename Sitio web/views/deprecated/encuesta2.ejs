@@ -1,0 +1,187 @@
+<div class="well">
+	<p>
+		Bienvenido, <%= ( user.nombre.indexOf(" ") == -1) ? user.nombre : user.nombre.substr(0, user.nombre.indexOf(" ")) %>.<br>
+		Encuesta pendiente. Rellene el formulario a continuación:
+	</p>
+</div>
+
+<div class="container">
+    <form name="myForm" action="/encuesta" method="POST">
+    <div class="panel-group">
+        <% for (i = 1; i < 13; i++){
+            %><div class="panel panel-default"><%
+                if (i === 1 || i === 5 || i === 8 || i === 11){%>
+                    <div class="panel-heading"><%-i%>.Cuando aprendo...</div><div class="panel-body">
+                <%}
+                else if (i === 2 || i === 9 || i === 12){%>
+                    <div class="panel-heading"><%-i%>.Aprendo mejor cuando...</div><div class="panel-body">
+                <%}
+                else if (i === 3 || i === 6 || i === 10){%>
+                    <div class="panel-heading"><%-i%>.Cuando estoy aprendiendo...</div><div class="panel-body">
+                <%}
+                else if (i === 4){%>
+                    <div class="panel-heading">4.Yo aprendo...</div><div class="panel-body">
+                <%}
+                else if (i === 7){%>
+                    <div class="panel-heading">7.Yo aprendo mejor de...</div><div class="panel-body">
+                <%}
+                for (j = 1; j < 5; j++){
+                    if(i === 1 && j === 1){%>
+                        <label>me gusta vivir sensaciones.</label>
+                    <%}
+                    if(i === 1 && j === 2){%>
+                        <label>me gusta pensar sobre ideas.</label>
+                    <%}
+                    if(i === 1 && j === 3){%>
+                        <label>me gusta estar haciendo cosas.</label>
+                    <%}
+                    if(i === 1 && j === 4){%>
+                        <label>me gusta observar y escuchar.</label>
+                    <%}
+                    if(i === 2 && j === 1){%>
+                        <label>escucho y observo cuidadosamente.</label>
+                    <%}
+                    if(i === 2 && j === 2){%>
+                        <label>confío en el pensamiento lógico.</label>
+                    <%}
+                    if(i === 2 && j === 3){%>
+                        <label>confío en mi intuición y sentimientos.</label>
+                    <%}
+                    if(i === 2 && j === 4){%>
+                        <label>trabajo duro para lograr hacer las cosas.</label>
+                    <%}
+                    if(i === 3 && j === 1){%>
+                        <label>tiendo a usar el razonamiento.</label>
+                    <%}
+                    if(i === 3 && j === 2){%>
+                        <label>soy responsable con lo que hago.</label>
+                    <%}
+                    if(i === 3 && j === 3){%>
+                        <label>soy callado y reservado.</label>
+                    <%}
+                    if(i === 3 && j === 4){%>
+                        <label>tengo fuertes sensaciones y reacciones.</label>
+                    <%}
+                    if(i === 4 && j === 1){%>
+                        <label>sientiendo.</label>
+                    <%}
+                    if(i === 4 && j === 2){%>
+                        <label>haciendo.</label>
+                    <%}
+                    if(i === 4 && j === 3){%>
+                        <label>observando.</label>
+                    <%}
+                    if(i === 4 && j === 4){%>
+                        <label>pensando.</label>
+                    <%}
+                    if(i === 5 && j === 1){%>
+                        <label>estoy abierto a nuevas experiencias.</label>
+                    <%}
+                    if(i === 5 && j === 2){%>
+                        <label>observo todos los aspectos del asunto.</label>
+                    <%}
+                    if(i === 5 && j === 3){%>
+                        <label>me gusta analizar las cosas, descomponerlas en sus partes.</label>
+                    <%}
+                    if(i === 5 && j === 4){%>
+                        <label>me gusta probar e intentar hacer las cosas.</label>
+                    <%}
+                    if(i === 6 && j === 1){%>
+                        <label>soy una persona observadora.</label>
+                    <%}
+                    if(i === 6 && j === 2){%>
+                        <label>soy una persona activa.</label>
+                    <%}
+                    if(i === 6 && j === 3){%>
+                        <label>soy una persona intuitiva.</label>
+                    <%}
+                    if(i === 6 && j === 4){%>
+                        <label>soy una persona lógica.</label>
+                    <%}
+                    if(i === 7 && j === 1){%>
+                        <label>la observación.</label>
+                    <%}
+                    if(i === 7 && j === 2){%>
+                        <label>la relación con otras personas.</label>
+                    <%}
+                    if(i === 7 && j === 3){%>
+                        <label>las teorías racionales.</label>
+                    <%}
+                    if(i === 7 && j === 4){%>
+                        <label>la oportunidad de probar y practicar.</label>
+                    <%}
+                    if(i === 8 && j === 1){%>
+                        <label>me gusta ver los resultados de mi trabajo.</label>
+                    <%}
+                    if(i === 8 && j === 2){%>
+                        <label>me gustan las ideas y las teorías.</label>
+                    <%}
+                    if(i === 8 && j === 3){%>
+                        <label>me tomo mi tiempo antes de actuar.</label>
+                    <%}
+                    if(i === 8 && j === 4){%>
+                        <label>me siento personalmente involucrado en las cosas.</label>
+                    <%}
+                    if(i === 9 && j === 1){%>
+                        <label>confío en mis observaciones.</label>
+                    <%}
+                    if(i === 9 && j === 2){%>
+                        <label>confío en mis sentimientos.</label>
+                    <%}
+                    if(i === 9 && j === 3){%>
+                        <label>puedo probar por mi cuenta.</label>
+                    <%}
+                    if(i === 9 && j === 4){%>
+                        <label>confío en mis ideas.</label>
+                    <%}
+                    if(i === 10 && j === 1){%>
+                        <label>soy una persona reservada.</label>
+                    <%}
+                    if(i === 10 && j === 2){%>
+                        <label>soy una persona receptiva.</label>
+                    <%}
+                    if(i === 10 && j === 3){%>
+                        <label>soy una persona responsable.</label>
+                    <%}
+                    if(i === 10 && j === 4){%>
+                        <label>soy una persona racional.</label>
+                    <%}
+                    if(i === 11 && j === 1){%>
+                        <label>me involucro.</label>
+                    <%}
+                    if(i === 11 && j === 2){%>
+                        <label>me gusta observar.</label>
+                    <%}
+                    if(i === 11 && j === 3){%>
+                        <label>evalúo las cosas.</label>
+                    <%}
+                    if(i === 11 && j === 4){%>
+                        <label>me gusta ser activo.</label>
+                    <%}
+                    if(i === 12 && j === 1){%>
+                        <label>analizo ideas.</label>
+                    <%}
+                    if(i === 12 && j === 2){%>
+                        <label>soy receptivo y abierto.</label>
+                    <%}
+                    if(i === 12 && j === 3){%>
+                        <label>soy cuidadoso.</label>
+                    <%}
+                    if(i === 12 && j === 4){%>
+                        <label>soy práctico.</label>
+                    <%}%>
+                    <p><input type='text' name='index[<%-i%>][<%-j%>]' value='' maxlength="1" size="1" required/></p>
+                <%}%>
+                </div>
+                </div>
+            <%}%>
+        </div>
+        <center><input type="submit" value="Enviar respuestas" name="finish" class="btn btn-success" ng-disabled="myForm.$invalid" /></center>
+    </form>
+</div>
+<% if (locals.errors == 0 && locals.submit == 'submitted'){%>
+<div class="alert alert-success">
+    <p>Encuesta respondida con éxito!</p>
+    <p>Por favor proceda a revisar el log de consola :D</p>
+</div>
+<% } %>

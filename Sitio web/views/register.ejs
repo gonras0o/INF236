@@ -1,39 +1,52 @@
 <div class="container">
-    <form name="myForm" action="/users/register" method="POST">
-        <div class="form-group">
-            <label>Nombre completo</label> <input name="fname" placeholder="Nombre completo" type="text" ng-model="name" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label>Rut</label> <input name="rut" placeholder="Rut" type="text" ng-model="rut" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label>Rol</label> <input name="rol" placeholder="Rol" type="text" ng-model="rol" class="form-control" required>
-        </div>
-        <div class="row">
-        <div class="form-group col-xs-6">
-            <label>Correo electrónico</label> <input name="email" placeholder="Email" type="text" ng-model="mail" class="form-control" required> </div> <div class="form-group col-xs-6"> <label>Dominio</label><div class="input-group"><span class="input-group-addon">@</span><select class="form-control">
-            	<option value="sansano">sansano.usm.cl</option>
-            	<option value="alumnos">alumnos.usm.cl</option>
-            </select></div>
-        </div>
-        </div>
-        <div class="form-group">
-            <label>Contraseña</label> <input name="password" type="password" placeholder="Contraseña" ng-model="pword" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label>Repetir contraseña</label> <input name="password2" placeholder="Repetir contraseña" type="password" ng-model="pword2" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-success" ng-disabled="myForm.$invalid">Registrar</button>
-        </div>
-    </form>
+	<form name="myForm" action="/users/register" method="POST">
+		<div class="form-group">
+			<label>Nombre completo</label>
+			<input name="nombre" type="text" placeholder="Juan Perez" ng-model="name" class="form-control" required>
+		</div>
+		<div class="form-group">
+			<label>RUT</label>
+			<input name="rut" type="text" placeholder="12345678-K" ng-model="rut" class="form-control" required>
+		</div>
+		<div class="form-group">
+			<label>Rol</label>
+			<input name="rol" type="text" placeholder="20XXYYYZZ-K" ng-model="rol" class="form-control" required>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-6">
+				<label>Correo electrónico</label>
+				<input name="email" placeholder="juan.perez.YY" type="text" ng-model="mail" class="form-control" required>
+			</div>
+			<div class="form-group col-xs-6">
+				<label>Dominio</label>
+				<div class="input-group"> <span class="input-group-addon">@</span>
+				<select name="servidor" class="form-control">
+					<option value="sansano">sansano.usm.cl</option>
+					<option value="alumnos">alumnos.usm.cl</option>
+					<option value="usm">usm.cl</option>
+				</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Contraseña</label>
+			<input name="password" type="password" placeholder="Contraseña" ng-model="pword" class="form-control" required>
+		</div>
+		<div class="form-group">
+			<label>Repetir contraseña</label>
+			<input name="password2" type="password" placeholder="Repetir contraseña" ng-model="pword2" class="form-control" required>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-success" ng-disabled="myForm.$invalid">Registrar</button>
+		</div>
+	</form>
 </div>
 <% if (locals.errors == 1){%>
 <div class="alert alert-danger">Las contraseñas ingresadas no coinciden!</div>
 <% } %>
 <% if (locals.errors == 0 && locals.submit == 'submitted'){%>
 <div class="alert alert-success">
-    <p>Usuario registrado con exito!</p>
-    <p>Por favor proceda a logearse para responder la encuesta y así tener acceso completo a la plataforma.</p>
+	<p>Usuario registrado con exito!</p>
+	<p>Por favor proceda a loguearse para responder la encuesta y así tener acceso completo a la plataforma.</p>
 </div>
 <% } %>

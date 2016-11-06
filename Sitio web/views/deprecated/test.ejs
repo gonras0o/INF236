@@ -1,0 +1,16 @@
+<div class="well">
+	<p>
+		<strong>Encuesta contestada - Datos de perfil</strong><br>
+
+		<strong>E-mail</strong>: <%= user.email %><br>
+		<strong>Contraseña</strong>: <%= user.password %><br>
+		<strong>RUT</strong>: <%= user.rut %><br>
+		<strong>Rol USM</strong>: <%= user.rol %><br>
+		<strong>Nombre</strong>: <%= user.nombre %><br>
+		<strong>Perfil Definido</strong>: ID <%= user.id_perfil_usuario %><br>
+		<strong>Privilegios Mod</strong>: <%= (user.es_moderador == 0) ? "No" : "Si" %><br>
+		<strong>Privilegios Admin</strong>: <%= (user.es_administrador == 0) ? "No" : "Si" %><br>
+	</p>
+</div>
+
+<iframe src="https://drive.google.com/embeddedfolderview?id=0B8JfCWA2FIufcHA2N1ZXcVRiUW8#grid" width="700" height="500" frameborder="0"></iframe>

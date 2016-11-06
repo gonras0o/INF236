@@ -1,57 +1,48 @@
-/**
- * Created by blues on 10-09-2016.
- */
 var express = require('express');
 var router = express.Router();
-var user = require('../modules/user');
 
-/* GET home page. */
-router.post('/login', function(req, res, next) {
-    var locals = {
-        title: 'Login | FISW',
-        usuario: req.body.user
-    };
-    res.render('login', locals);
-});
+// Modulo de usuarios: acceso a Passport proporcionado
+module.exports = function(app, passport) {
+	
+	// Home GET para todos
+	router.get('/', function(req, res, next) {
+		var locals = {
+		title: 'Homepage | FISW'
+		};
+		res.render('index', locals);
+	});
+	
+	// Login GET; siempre en Homepage
+	
+	// Login POST al loguearse desde Homepage
+	router.post('/login', passport.authenticate('login', {
+		successRedirect: '/encuesta',
+		failureRedirect: '/',
+	}));
 
-router.get('/register', function(req, res, next) {
-    var locals = {
-        title: 'Register | FISW',
-        errors: 0,
-        submit: 'not submitted'
-    };
-    res.render('register', locals);
-});
+	// Register GET en Homepage
+	router.get('/register', function(req, res, next) {
+		var locals = {
+			title: 'Registro | FISW',
+			errors: 0,
+			submit: 'not submitted'
+		};
+		res.render('register', locals);
+	});
 
-router.post('/register', function(req, res, next) {
-    var name = req.body.fname;
-    var email = req.body.email;
-    var rut = req.body.rut;
-    var rol = req.body.rol;
-    var password = req.body.password;
-    var password2 = req.body.password2;
-    var error = 0;
+	// Register POST al completar el registro
+	router.post('/register', passport.authenticate('register', {
+		successRedirect: '/encuesta',
+		failureRedirect: '/',
+	}));
+	
+	// Logout GET desde la navbar
+	router.get('/logout', function(req, res)
+	{
+		req.logout();
+		res.redirect('/');
+	});
+	
+	return router;
+}
 
-
-    if (password !== password2){
-        error = 1;
-    }
-    else{
-        error = 0;
-    }
-
-    //user.checkRut, then user.checkEmail
-
-    var locals = {
-        title: 'Register | FISW',
-        errors: error,
-        submit: 'submitted'
-    };
-
-    //if not any errors then user.createUser
-
-    res.render('register', locals);
-
-});
-
-module.exports = router;

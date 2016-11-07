@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+
+<head>
+    <title> <%= locals.title %> </title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Sistema GNSCM</a>
+        </div>
+
+        <% if (!locals.user) { %>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" action="../users/login" method="post">
+                <div class="form-group">
+                    <input name="email" type="text" placeholder="Correo electrónico" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input name="password" type="password" placeholder="Contraseña" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Iniciar sesión</button>
+                <a class="btn btn-success" href="/users/register">Registrarse</a>
+            </form>
+        </div>
+
+        <% } else { %>
+        <div class="navbar-right">
+            <p class="navbar-text">Conectado como <%= user.nombre %></p>
+            <a class="btn btn-success navbar-btn" href="/users/logout">Cerrar sesión</a>
+        </div>
+        <% } %>
+
+    </div>
+</nav>
+
+<!-- Jumbotron para mostrar renders -->
+<div class="jumbotron">
+    <div class="container">
+        <%-body%>
+    </div>
+</div>
+
+<!-- Pie de pagina -->
+<div class="container">
+    <hr>
+    <footer>
+        <p>&copy; GNSCM</p>
+    </footer>
+</div>
+
+</body>
+</html>

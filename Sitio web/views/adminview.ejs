@@ -1,0 +1,163 @@
+<script>
+    var clientId = '479974271507-lreefjdadolcuiv2fa4jt8l18eesqa0s';
+    var apiKey = 'AIzaSyAm8ugWtDhfjtW--GG2z6Gk1vjOj5dakgg';
+    // To enter one or more authentication scopes, refer to the documentation for the API.
+    var scopes = 'https://www.googleapis.com/auth/drive';
+    function handleClientLoad() {
+        //console.log("Siii");
+        gapi.client.setApiKey(apiKey);
+        window.setTimeout(checkAuth,1);
+    }
+    function checkAuth() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+    }
+
+    function handleAuthResult(authResult) {
+        var authorizeButton = document.getElementById('authorize-button');
+        var div1=document.getElementById('div1');
+        var div2=document.getElementById('div2');
+        var div3=document.getElementById('div3');
+        var div4=document.getElementById('div4');
+        var par1=document.getElementById('par1');
+        var par2=document.getElementById('par2');
+        var par3=document.getElementById('par3');
+        var par4=document.getElementById('par4');
+        if (authResult && !authResult.error) {
+            //console.log("Siii");
+            authorizeButton.style.visibility = 'hidden';
+            div1.style.display='inline-block';
+            div2.style.display='inline-block';
+            div3.style.display='inline-block';
+            div4.style.display='inline-block';
+            par1.style.display='block';
+            par2.style.display='block';
+            par3.style.display='block';
+            par4.style.display='block';
+            makeApiCall();
+        } else {
+            authorizeButton.style.visibility = '';
+            div1.style.display='none';
+            div2.style.display='none';
+            div3.style.display='none';
+            div4.style.display='none';
+            par1.style.display='none';
+            par2.style.display='none';
+            par3.style.display='none';
+            par4.style.display='none';
+            authorizeButton.onclick = handleAuthClick;
+        }
+    }
+
+
+    function handleAuthClick(event) {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+        return false;
+    }
+    function retrieveAllFilesInFolder(folderId,callback,aux,nomb) {
+        var retrievePageOfChildren = function(request, result) {
+            request.execute(function(resp) {
+                result = result.concat(resp.items);
+                var nextPageToken = resp.nextPageToken;
+                if (nextPageToken) {
+                    request = gapi.client.drive.children.list({
+                        'folderId' : folderId,
+                        'pageToken': nextPageToken
+                    });
+                    retrievePageOfChildren(request, result);
+                } else {
+                    callback(result,aux,nomb);
+                }
+            });
+        }
+        var initialRequest = gapi.client.drive.children.list({
+            'folderId' : folderId
+        });
+        retrievePageOfChildren(initialRequest, []);
+    }
+    function imprimir(result,aux,nomb)
+    {
+        //console.log(result.length);
+
+        for (i=0; i<result.length; i++)
+        {
+            //console.log(result[i].id);
+            for (j=0; j<aux.items.length; j++)
+            {
+                if(aux.items[j].id==result[i].id)
+                {
+                    var titulo = aux.items[j].title;
+                    var fechaUpd = aux.items[j].modifiedDate;
+                    var userUpd = aux.items[j].lastModifyingUserName;
+                    var img = document.createElement("IMG");
+                    img.src = "https://drive.google.com/thumbnail?id=" + aux.items[j].id;
+
+                    var currentDiv = document.getElementById(nomb);
+                    document.getElementById(nomb).appendChild(img);
+                }
+            }
+        }
+    }
+    // Load the API and make an API call.  Display the results on the screen.
+    function makeApiCall() {
+        gapi.client.load('drive', 'v2', function() {
+            var vista1,vista2,vista3,vista4;
+            var request = gapi.client.drive.files.list ();
+
+            request.execute(function(resp) {
+
+
+                for (i=0; i<resp.items.length; i++)
+                {
+                    //console.log(resp.items[i].id);
+                    if (resp.items[i].title.includes('vista1'))
+                    {
+                        var vista1=resp.items[i].id;
+                        console.log("vista1_id"+vista1);
+
+                    }
+                    else if (resp.items[i].title.includes('vista2'))
+                    {
+                        var vista2=resp.items[i].id;
+                        console.log("vista2_id"+vista2);
+
+                    }
+                    else if (resp.items[i].title.includes('vista3'))
+                    {
+                        var vista3=resp.items[i].id;
+                        console.log("vista3_id"+vista3);
+
+                    }
+                    else if (resp.items[i].title.includes('vista4')) {
+                        var vista4 = resp.items[i].id;
+                        console.log("vista4_id" + vista4);
+
+                    }
+                }
+                retrieveAllFilesInFolder(vista1,imprimir,resp,'div1');
+                retrieveAllFilesInFolder(vista2,imprimir,resp,'div2');
+                retrieveAllFilesInFolder(vista3,imprimir,resp,'div3');
+                retrieveAllFilesInFolder(vista4,imprimir,resp,'div4');
+            });
+
+        });
+
+    }
+    </script>
+
+
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+<button id="authorize-button" style="visibility: hidden">Sincronizar Drive</button>
+<p id="par1" style="display: none">Vista1</p>
+<div id="div1" class="well" style="display: none">
+</div>
+<p id="par2" style="display: none">Vista2</p>
+<div id="div2" class="well" style="display: none">
+</div>
+<p id="par3" style="display: none">Vista3</p>
+<div id="div3" class="well" style="display: none">
+</div>
+<p id="par4" style="display: none">Vista4</p>
+<div id="div4" class="well" style="display: none">
+</div>
+

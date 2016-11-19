@@ -44,13 +44,14 @@ var routes = require('./routes/index');
 var encuesta = require('./routes/encuesta');
 var folder = require('./routes/folder');
 var users = require('./routes/users')(app, passport);
-
+var adm = require('./routes/adminview');
 var my = require('./routes/my');
 
 app.use('/', routes);
 app.use('/encuesta', encuesta);
 app.use('/folder', folder);
 app.use('/users', users);
+app.use('/adminview', adm);
 
 app.use('/my', my);
 

@@ -11,6 +11,7 @@ router.get('/', function(req, res)
 			console.log("My GET exitoso");
 			console.log(req.user);
 			// Encuesta contestada, perfil definido, todo OK: renderizar perfil
+
 			var locals = 
 			{
 				title: 'Área personal',

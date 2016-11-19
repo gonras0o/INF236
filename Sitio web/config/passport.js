@@ -4,8 +4,8 @@ var mysql = require('mysql');
 
 var connection = mysql.createConnection({
 	host:'localhost',
-	user:'inf236',
-	password:'inf236'
+	user:'root',
+	password:'Gtoanp_23_08_1988'
 });
 
 connection.query('USE inf236'); // connection.connect() implicito

@@ -1,6 +1,10 @@
 <script>
     var clientId = '479974271507-lreefjdadolcuiv2fa4jt8l18eesqa0s';
     var apiKey = 'AIzaSyAm8ugWtDhfjtW--GG2z6Gk1vjOj5dakgg';
+    var id1;
+    var id2;
+    var id3;
+    var id4;
     // To enter one or more authentication scopes, refer to the documentation for the API.
     var scopes = 'https://www.googleapis.com/auth/drive';
     function handleClientLoad() {
@@ -22,6 +26,10 @@
         var par2=document.getElementById('par2');
         var par3=document.getElementById('par3');
         var par4=document.getElementById('par4');
+        var drop1=document.getElementById("drop1");
+        var drop2=document.getElementById("drop2");
+        var drop3=document.getElementById("drop3");
+        var drop4=document.getElementById("drop4");
         if (authResult && !authResult.error) {
             //console.log("Siii");
             authorizeButton.style.visibility = 'hidden';
@@ -33,6 +41,10 @@
             par2.style.display='block';
             par3.style.display='block';
             par4.style.display='block';
+            drop1.style.display='block';
+            drop2.style.display='block';
+            drop3.style.display='block';
+            drop4.style.display='block';
             makeApiCall();
         } else {
             authorizeButton.style.visibility = '';
@@ -44,6 +56,10 @@
             par2.style.display='none';
             par3.style.display='none';
             par4.style.display='none';
+            drop1.style.display='none';
+            drop2.style.display='none';
+            drop3.style.display='none';
+            drop4.style.display='none';
             authorizeButton.onclick = handleAuthClick;
         }
     }
@@ -53,7 +69,7 @@
         gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
         return false;
     }
-    function retrieveAllFilesInFolder(folderId,callback,aux,nomb) {
+    function retrieveAllFilesInFolder(folderId,callback,aux,nomb,nomb2) {
         var retrievePageOfChildren = function(request, result) {
             request.execute(function(resp) {
                 result = result.concat(resp.items);
@@ -65,7 +81,7 @@
                     });
                     retrievePageOfChildren(request, result);
                 } else {
-                    callback(result,aux,nomb);
+                    callback(result,aux,nomb,nomb2);
                 }
             });
         }
@@ -74,10 +90,10 @@
         });
         retrievePageOfChildren(initialRequest, []);
     }
-    function imprimir(result,aux,nomb)
+    function imprimir(result,aux,nomb,nomb2)
     {
         //console.log(result.length);
-
+        var drop1=document.getElementById(nomb2);
         for (i=0; i<result.length; i++)
         {
             //console.log(result[i].id);
@@ -88,14 +104,159 @@
                     var titulo = aux.items[j].title;
                     var fechaUpd = aux.items[j].modifiedDate;
                     var userUpd = aux.items[j].lastModifyingUserName;
-                    var img = document.createElement("IMG");
-                    img.src = "https://drive.google.com/thumbnail?id=" + aux.items[j].id;
-
-                    var currentDiv = document.getElementById(nomb);
-                    document.getElementById(nomb).appendChild(img);
+                    //var tipo=aux.items[j].type;
+                    //console.log("aca");
+                    //console.log(aux.items[j].type);
+                    if(titulo.includes("seccion"))
+                    {
+                        var option = document.createElement("option");
+                        option.name=aux.items[j].id;
+                        option.text = titulo;
+                        drop1.add(option);
+                    }
                 }
             }
         }
+    }
+    function imprimir2(result,aux,nomb,nomb2,nomb4)
+    {
+        //console.log(result.length);
+        document.getElementById(nomb4).innerHTML = "";
+        for (i=0; i<result.length; i++)
+        {
+            for (j=0; j<aux.items.length; j++)
+            {
+                if(aux.items[j].id==result[i].id)
+                {
+                    var titulo = aux.items[j].title;
+                    var fechaUpd = aux.items[j].modifiedDate;
+                    var userUpd = aux.items[j].lastModifyingUserName;
+                    var img = document.createElement("IMG");
+                    img.src = "https://drive.google.com/thumbnail?id=" + aux.items[j].id;
+
+                    var currentDiv = document.getElementById(nomb4);
+                    document.getElementById(nomb4).appendChild(img);
+                }
+            }
+        }
+    }
+    function buscar2(folderId,callback,aux,nomb,nomb2,sid,nomb4) {
+        var retrievePageOfChildren = function(request, result) {
+            request.execute(function(resp) {
+                result = result.concat(resp.items);
+                var nextPageToken = resp.nextPageToken;
+                if (nextPageToken) {
+                    request = gapi.client.drive.children.list({
+                        'folderId' : sid,
+                        'pageToken': nextPageToken
+                    });
+                    retrievePageOfChildren(request, result);
+                } else {
+                    callback(result,aux,nomb,nomb2,nomb4);
+                }
+            });
+        }
+        var initialRequest = gapi.client.drive.children.list({
+            'folderId' : sid
+        });
+        retrievePageOfChildren(initialRequest, []);
+    }
+    function buscar(folderId,callback,aux,nomb,nomb2,sid,nomb4) {
+        var retrievePageOfChildren = function(request, result) {
+            request.execute(function(resp) {
+                result = result.concat(resp.items);
+                var nextPageToken = resp.nextPageToken;
+                if (nextPageToken) {
+                    request = gapi.client.drive.children.list({
+                        'folderId' : folderId,
+                        'pageToken': nextPageToken
+                    });
+                    retrievePageOfChildren(request, result);
+                } else {
+                    buscar2(result,imprimir2,aux,nomb,nomb2,sid,nomb4);
+                }
+            });
+        }
+        var initialRequest = gapi.client.drive.children.list({
+            'folderId' : sid
+        });
+        retrievePageOfChildren(initialRequest, []);
+    }
+    function cambio1(valor,sid)
+    {
+        var id;
+        console.log(valor);
+        var kas=document.getElementById(sid);
+        var largo = document.getElementById(sid).length;
+        for (i=0; i<largo; i++)
+        {
+            if(kas.options[i].value.includes(valor))
+            {
+                id= kas.options[i].name;
+            }
+        }
+        var request = gapi.client.drive.files.list ();
+
+        request.execute(function(resp) {
+            buscar("vista1",imprimir2,resp,valor,"drop1",id,"div1");
+        });
+    }
+    function cambio2(valor,sid)
+    {
+        var id;
+        console.log(valor);
+        var kas=document.getElementById(sid);
+        var largo = document.getElementById(sid).length;
+        for (i=0; i<largo; i++)
+        {
+            if(kas.options[i].value.includes(valor))
+            {
+                id= kas.options[i].name;
+            }
+        }
+        var request = gapi.client.drive.files.list ();
+
+        request.execute(function(resp) {
+            buscar("vista2",imprimir2,resp,valor,"drop2",id,"div2");
+        });
+    }
+    function cambio3(valor,sid)
+    {
+        var id;
+        console.log(valor);
+        var kas=document.getElementById(sid);
+        var largo = document.getElementById(sid).length;
+        for (i=0; i<largo; i++)
+        {
+            if(kas.options[i].value.includes(valor))
+            {
+                id= kas.options[i].name;
+            }
+        }
+        var request = gapi.client.drive.files.list ();
+
+        request.execute(function(resp) {
+            buscar("vista3",imprimir2,resp,valor,"drop3",id,"div3");
+        });
+    }
+    function cambio4(valor,sid)
+    {
+        var id;
+        console.log(valor);
+        var kas=document.getElementById(sid);
+        var largo = document.getElementById(sid).length;
+        for (i=0; i<largo; i++)
+        {
+            if(kas.options[i].value.includes(valor))
+            {
+                id= kas.options[i].name;
+            }
+        }
+        var request = gapi.client.drive.files.list ();
+
+        request.execute(function(resp) {
+            buscar("vista4",imprimir2,resp,valor,"drop4",id,"div4");
+        });
     }
     // Load the API and make an API call.  Display the results on the screen.
     function makeApiCall() {
@@ -112,31 +273,35 @@
                     if (resp.items[i].title.includes('vista1'))
                     {
                         var vista1=resp.items[i].id;
+                        id1=vista1;
                         console.log("vista1_id"+vista1);
 
                     }
                     else if (resp.items[i].title.includes('vista2'))
                     {
                         var vista2=resp.items[i].id;
+                        id2=vista2;
                         console.log("vista2_id"+vista2);
 
                     }
                     else if (resp.items[i].title.includes('vista3'))
                     {
                         var vista3=resp.items[i].id;
+                        id3=vista3;
                         console.log("vista3_id"+vista3);
 
                     }
                     else if (resp.items[i].title.includes('vista4')) {
                         var vista4 = resp.items[i].id;
+                        id4=vista4;
                         console.log("vista4_id" + vista4);
 
                     }
                 }
-                retrieveAllFilesInFolder(vista1,imprimir,resp,'div1');
-                retrieveAllFilesInFolder(vista2,imprimir,resp,'div2');
-                retrieveAllFilesInFolder(vista3,imprimir,resp,'div3');
-                retrieveAllFilesInFolder(vista4,imprimir,resp,'div4');
+                retrieveAllFilesInFolder(vista1,imprimir,resp,'div1',"drop1");
+                retrieveAllFilesInFolder(vista2,imprimir,resp,'div2',"drop2");
+                retrieveAllFilesInFolder(vista3,imprimir,resp,'div3',"drop3");
+                retrieveAllFilesInFolder(vista4,imprimir,resp,'div4',"drop4");
             });
 
         });
@@ -149,15 +314,23 @@
 
 <button id="authorize-button" style="visibility: hidden">Sincronizar Drive</button>
 <p id="par1" style="display: none">Vista1</p>
+<select id="drop1" style="display: none" onchange="cambio1(this.value,this.id)">
+</select>
 <div id="div1" class="well" style="display: none">
 </div>
 <p id="par2" style="display: none">Vista2</p>
+<select id="drop2" style="display: none" onchange="cambio2(this.value,this.id)">
+</select>
 <div id="div2" class="well" style="display: none">
 </div>
 <p id="par3" style="display: none">Vista3</p>
+<select id="drop3" style="display: none" onchange="cambio3(this.value,this.id)">
+</select>
 <div id="div3" class="well" style="display: none">
 </div>
 <p id="par4" style="display: none">Vista4</p>
+<select id="drop4" style="display: none" onchange="cambio4(this.value,this.id)">
+</select>
 <div id="div4" class="well" style="display: none">
 </div>
 

@@ -339,8 +339,6 @@
         <p id="par6" style="display: inline">Quitar Permisos:</p>
         <p id="paraux2" style="display: none"><%= datos2 %> </p>
         <select id="drop6" style="display: inline">
-            <option value="volvo">Volvo</option>
-            <option value="otro">Otro</option>
         </select>
         <button id="quitar" ng-click="gestionar_permisos2()">Quitar</button>
     </div>
@@ -383,6 +381,34 @@
 
         $scope.gestionar_permisos2 = function () {
             var mail = document.getElementById("drop6").value;
+            var request = gapi.client.drive.permissions.getIdForEmail({
+                'email': mail,
+            });
+            request.execute(function(resp) {
+                console.log('ID: ' + resp.id);
+                var request = gapi.client.drive.permissions.delete({
+                    'fileId': "0B0gyt5W2MXfTcnF1NjdUanVzVm8",
+                    'permissionId': resp.id
+                });
+                var request2 = gapi.client.drive.permissions.delete({
+                    'fileId': "0B0gyt5W2MXfTZHk3ZGtPb2RON28",
+                    'permissionId': resp.id
+                });
+                var request3 = gapi.client.drive.permissions.delete({
+                    'fileId': "0B0gyt5W2MXfTNkdoVXU0WkYxMFk",
+                    'permissionId': resp.id
+                });
+                var request4 = gapi.client.drive.permissions.delete({
+                    'fileId': "0B0gyt5W2MXfTdlF6MEJhWWtSS3M",
+                    'permissionId': resp.id
+                });
+                request.execute(function(resp) { });
+                request2.execute(function(resp) { });
+                request3.execute(function(resp) { });
+                request4.execute(function(resp) { });
+
+            });
+
             console.log(mail);
             $http ({
                 method: 'POST',
@@ -403,6 +429,32 @@
 
         $scope.gestionar_permisos = function () {
             var mail = document.getElementById("drop5").value;
+            var body = {
+                'value': mail,
+                'type': "user",
+                'role': "writer"
+            };
+            var request = gapi.client.drive.permissions.insert({
+                'fileId': "0B0gyt5W2MXfTcnF1NjdUanVzVm8",
+                'resource': body
+            });
+            var request2 = gapi.client.drive.permissions.insert({
+                'fileId': "0B0gyt5W2MXfTZHk3ZGtPb2RON28",
+                'resource': body
+            });
+            var request3 = gapi.client.drive.permissions.insert({
+                'fileId': "0B0gyt5W2MXfTNkdoVXU0WkYxMFk",
+                'resource': body
+            });
+            var request4 = gapi.client.drive.permissions.insert({
+                'fileId': "0B0gyt5W2MXfTdlF6MEJhWWtSS3M",
+                'resource': body
+            });
+            request.execute();
+            request2.execute();
+            request3.execute();
+            request4.execute();
+
             console.log(mail);
             $http ({
                 method: 'POST',

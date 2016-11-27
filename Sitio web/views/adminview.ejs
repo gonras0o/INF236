@@ -1,10 +1,6 @@
 <script>
     var clientId = '479974271507-lreefjdadolcuiv2fa4jt8l18eesqa0s';
     var apiKey = 'AIzaSyAm8ugWtDhfjtW--GG2z6Gk1vjOj5dakgg';
-    var id1;
-    var id2;
-    var id3;
-    var id4;
     // To enter one or more authentication scopes, refer to the documentation for the API.
     var scopes = 'https://www.googleapis.com/auth/drive';
     function handleClientLoad() {
@@ -131,11 +127,16 @@
                     var titulo = aux.items[j].title;
                     var fechaUpd = aux.items[j].modifiedDate;
                     var userUpd = aux.items[j].lastModifyingUserName;
-                    var img = document.createElement("IMG");
+                    var ars = document.createElement("a");
+                    ars.id="ayuda"+i+j;
+                    var img = document.createElement("img");
+                    img.id="IMG"+i+j;
                     img.src = "https://drive.google.com/thumbnail?id=" + aux.items[j].id;
-
+                    ars.href=aux.items[j].alternateLink;
+                    console.log(aux.items[j].alternateLink);
                     var currentDiv = document.getElementById(nomb4);
-                    document.getElementById(nomb4).appendChild(img);
+                    ars.appendChild(img);
+                    document.getElementById(nomb4).appendChild(ars);
                 }
             }
         }
@@ -260,9 +261,30 @@
     }
     // Load the API and make an API call.  Display the results on the screen.
     function makeApiCall() {
+        var tes=document.getElementById("paraux").innerHTML;
+        var tes2=document.getElementById("paraux2").innerHTML;
+        //console.log(tes);
+        //console.log(tes2);
+        var dropcito=document.getElementById("drop5");
+        var arr=tes.split(",");
+        for(i=0; i<arr.length;i++)
+        {
+            var option = document.createElement("option");
+            option.text = arr[i];
+            dropcito.add(option);
+        }
+        var dropcito2=document.getElementById("drop6");
+        var arr2=tes2.split(",");
+        for(i=0; i<arr2.length;i++)
+        {
+            var option = document.createElement("option");
+            option.text = arr2[i];
+            dropcito2.add(option);
+        }
         gapi.client.load('drive', 'v2', function() {
             var vista1,vista2,vista3,vista4;
             var request = gapi.client.drive.files.list ();
+
 
             request.execute(function(resp) {
 
@@ -310,7 +332,28 @@
     </script>
 
 
+
 <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+<div ng-app="permiso" class="container">
+    <div ng-controller="PermisoController">
+        <p id="par6" style="display: inline">Quitar Permisos:</p>
+        <p id="paraux2" style="display: none"><%= datos2 %> </p>
+        <select id="drop6" style="display: inline">
+            <option value="volvo">Volvo</option>
+            <option value="otro">Otro</option>
+        </select>
+        <button id="quitar" ng-click="gestionar_permisos2()">Quitar</button>
+    </div>
+</div>
+<div id="App2" ng-app="permisos" class="container">
+<div ng-controller="PermisosController">
+    <p id="par5" style="display: inline">Otorgar Permisos:</p>
+    <p id="paraux" style="display: none"><%= datos1 %> </p>
+    <select id="drop5" style="display: inline">
+    </select>
+    <button id="otorgar" ng-click="gestionar_permisos()">Otorgar</button>
+</div>
+</div>
 
 <button id="authorize-button" style="visibility: hidden">Sincronizar Drive</button>
 <p id="par1" style="display: none">Vista1</p>
@@ -334,3 +377,46 @@
 <div id="div4" class="well" style="display: none">
 </div>
 
+<script>
+    angular.module('permiso', []).controller('PermisoController', function($scope, $http, $log, $window)
+    {
+
+        $scope.gestionar_permisos2 = function () {
+            var mail = document.getElementById("drop6").value;
+            console.log(mail);
+            $http ({
+                method: 'POST',
+                url: '/adminview',
+                data:
+                {
+                    respuestas: mail,
+                    tipo: "quitar"
+                }
+            }).then(function successCallback(response)
+            {
+                $window.location.href='/adminview';
+            });
+        }
+    });
+    angular.module('permisos', []).controller('PermisosController', function($scope, $http, $log, $window)
+    {
+
+        $scope.gestionar_permisos = function () {
+            var mail = document.getElementById("drop5").value;
+            console.log(mail);
+            $http ({
+                method: 'POST',
+                url: '/adminview',
+                data:
+                {
+                    respuestas: mail,
+                    tipo: "otorgar"
+                }
+            }).then(function successCallback(response)
+            {
+                $window.location.href='/adminview';
+            });
+        }
+    });
+    angular.bootstrap(document.getElementById("App2"), ['permisos']);
+</script>
